@@ -95,6 +95,7 @@ class Configuration implements ConfigurationInterface
                                     ->scalarNode('label')->end()
                                     ->scalarNode('label_catalogue')->end()
                                     ->scalarNode('icon')->defaultValue('<i class="fa fa-folder"></i>')->end()
+                                    ->scalarNode('box_class')->defaultValue('box-info')->end()
                                     ->arrayNode('items')
                                         ->prototype('scalar')->end()
                                     ->end()

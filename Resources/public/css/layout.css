@@ -326,3 +326,7 @@ legend.sonata-ba-fieldset-collapsed-description + .sonata-ba-collapsed-fields {
 .form-horizontal .control-group {
     margin-bottom: 10px;
 }
+
+th.sonata-ba-list-field-header-actions {
+    min-width: 100px;
+}

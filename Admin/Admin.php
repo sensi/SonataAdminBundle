@@ -187,7 +187,7 @@ abstract class Admin implements AdminInterface, DomainObjectInterface
      * @var array
      */
     protected $formOptions = array();
-
+    
     /**
      * Default values to the datagrid
      *
@@ -454,6 +454,13 @@ abstract class Admin implements AdminInterface, DomainObjectInterface
     protected $securityInformation = array();
 
     protected $cacheIsGranted = array();
+    
+    /**
+     * Set of parameters for the admin
+     *
+     * @var array
+     */
+    protected $params = array();
 
     /**
      * {@inheritdoc}
@@ -2711,5 +2718,42 @@ abstract class Admin implements AdminInterface, DomainObjectInterface
     public function getObjectMetadata($object)
     {
         return new Metadata($this->toString($object));
+    }
+    
+    /**
+     * Get the parameter value of given name if exists. Otherwise return $default false
+     * 
+     * @param string $name
+     * @param mixed $default
+     * @return mixed
+     */
+    public function getParam($name, $default=false) {
+        if (isset($this->params[$name])) {
+            return $this->params[$name];
+        }
+        return $default;
+    }
+    
+    /**
+     * Add new parameter
+     * 
+     * @param string $name
+     * @param mixed $value
+     */
+    public function setParam($name, $value) {
+        $this->params[$name] = $value;
+    }
+    
+    /**
+     * Check if param exists with given name
+     * 
+     * @param type $name
+     * @return boolean
+     */
+    public function hasParam($name) {
+        if (isset($this->params[$name])) {
+            return true;
+        }
+        return false;
     }
 }

@@ -20,11 +20,40 @@
             {% endif %}
 
             {% block sonata_pre_fieldsets %}
-                <div class="row">
+                {% if admin.getParam('form_tablayout') %}
+                <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    {% for name, form_group in admin.formgroups %}
+                        
+                        
+        
+                        
+                        <li class=" {% if loop.first %} active{% endif %}">
+                            <a data-toggle="tab" href="#{{ admin.uniqid }}_{{ loop.index }}">{{name}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             {% endblock %}
 
             {% block sonata_tab_content %}
+                {% if admin.getParam('form_tablayout') %}
+                    <div class="tab-content">
+                {% endif %}
                 {% for name, form_group in admin.formgroups %}
+                    {% if admin.hasParam('form_tablayout') %}
+                            <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">
+                                        {% if form_group.description != false %}
+                                            <p>{{ form_group.description|raw }}</p>
+                                        {% endif %}
+
+                                        {% for field_name in form_group.fields %}
+                                            {% if admin.formfielddescriptions[field_name] is defined %}
+                                                {{ form_row(form[field_name])}}
+                                            {% endif %}
+                                        {% endfor %}
+                            </div>
+                    {% else %}
                     <div class="{{ form_group.class|default('col-md-12') }}">
                         <div class="box box-success">
                             <div class="box-header">
@@ -49,11 +78,14 @@
                             {#</div>#}
                         </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
+                {% if admin.getParam('form_tablayout') %}
+                </div>
+                {% endif %}
             {% endblock %}
 
             {% block sonata_post_fieldsets %}
-                </div>
             {% endblock %}
 
             {{ form_rest(form) }}

@@ -71,12 +71,14 @@ class AddDependencyCallsCompilerPass implements CompilerPassInterface
                 $resolvedGroupName = isset($attributes['group']) ? $parameterBag->resolveValue($attributes['group']) : 'default';
                 $labelCatalogue = isset($attributes['label_catalogue']) ? $attributes['label_catalogue'] : 'SonataAdminBundle';
                 $icon = isset($attributes['icon']) ? $attributes['icon'] : '<i class="fa fa-folder"></i>';
+                $box_class = isset($attributes['box_class']) ? $attributes['box_class'] : 'box';
 
                 if (!isset($groupDefaults[$resolvedGroupName])) {
                     $groupDefaults[$resolvedGroupName] = array(
                         'label'           => $resolvedGroupName,
                         'label_catalogue' => $labelCatalogue,
                         'icon' => $icon,
+                        'box_class' => $box_class,
                         'roles' => array()
                     );
                 }
@@ -113,6 +115,10 @@ class AddDependencyCallsCompilerPass implements CompilerPassInterface
 
                 if (empty($group['icon'])) {
                     $groups[$resolvedGroupName]['icon'] = $groupDefaults[$resolvedGroupName]['icon'];
+                }
+                
+                if (empty($group['box_class'])) {
+                    $groups[$resolvedGroupName]['box_class'] = $groupDefaults[$resolvedGroupName]['box_class'];
                 }
 
                 if (!empty($group['item_adds'])) {
