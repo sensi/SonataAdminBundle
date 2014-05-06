@@ -1,7 +1,7 @@
 Templates
 =========
 
-``SoantaAdminBundle`` comes with a significant amount of ``twig`` files used to display the
+``SonataAdminBundle`` comes with a significant amount of ``twig`` files used to display the
 different parts of each ``Admin`` action's page. If you read the ``Templates`` part of the :doc:`architecture` section of this guide, you should know by now how these are organized in
 the ``views`` folder. If you haven't, now would be a good time to do it.
 
@@ -110,6 +110,7 @@ You can specify your templates in the config.yml file, like so:
                 acl:     SonataAdminBundle:CRUD:acl.html.twig
                 action:  SonataAdminBundle:CRUD:action.html.twig
                 select:  SonataAdminBundle:CRUD:list__select.html.twig
+                filter:  SonataAdminBundle:Form:filter_admin_fields.html.twig
                 dashboard:           SonataAdminBundle:Core:dashboard.html.twig
                 search:              SonataAdminBundle:Core:search.html.twig
                 batch_confirmation:  SonataAdminBundle:CRUD:batch_confirmation.html.twig
