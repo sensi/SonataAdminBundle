@@ -12,7 +12,23 @@ file that was distributed with this source code.
 {% extends base_template %}
 
 {% block actions %}
-    <li>{% include 'SonataAdminBundle:Core:create_button.html.twig' %}</li>
+        <li>{% include 'SonataAdminBundle:Core:create_button.html.twig' %}</li>
+        
+        {% if admin.hasRoute('export') and admin.isGranted("EXPORT") and admin.getExportFormats()|length %}
+        <li class="dropdown-submenu pull-left">
+            <a tabindex="-1" href="#"><i class="glyphicon glyphicon-download"></i> {{ "label_export_download"|trans({}, "SonataAdminBundle") }}</a>
+            <ul class="dropdown-menu">
+              {% for format in admin.getExportFormats() %}
+                <li>
+                    <a href="{{ admin.generateUrl('export', admin.modelmanager.paginationparameters(admin.datagrid, 0) + {'format' : format}) }}">
+                        <i class="glyphicon glyphicon-download"></i>
+                        {{ format|upper }}
+                    </a>
+                <li>
+            {% endfor %}
+            </ul>
+        </li>
+        {% endif %}
 {% endblock %}
 
 {% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}{% endblock %}
@@ -20,7 +36,7 @@ file that was distributed with this source code.
 
 {% block list_table %}
     <div class="box box-primary">
-        <div class="box-body table-responsive no-padding">
+        <div class="box-body no-padding" style="overflow-x: scroll; overflow-y:visible;">
             {{ sonata_block_render_event('sonata.admin.list.table.top', { 'admin': admin }) }}
 
             {% block list_header %}{% endblock %}
@@ -129,28 +145,6 @@ file that was distributed with this source code.
                                             {% endif %}
 
                                             <div class="pull-right">
-                                                {% if admin.hasRoute('export') and admin.isGranted("EXPORT") and admin.getExportFormats()|length %}
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                            <i class="glyphicon glyphicon-export"></i>
-                                                            {{ "label_export_download"|trans({}, "SonataAdminBundle") }}
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            {% for format in admin.getExportFormats() %}
-                                                                <li>
-                                                                    <a href="{{ admin.generateUrl('export', admin.modelmanager.paginationparameters(admin.datagrid, 0) + {'format' : format}) }}">
-                                                                        <i class="glyphicon glyphicon-download"></i>
-                                                                        {{ format|upper }}
-                                                                    </a>
-                                                                <li>
-                                                            {% endfor %}
-                                                        </ul>
-                                                    </div>
-
-                                                    &nbsp;-&nbsp;
-                                                {% endif %}
-
                                                 {% block pager_results %}
                                                     {% include admin.getTemplate('pager_results') %}
                                                 {% endblock %}

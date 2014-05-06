@@ -288,6 +288,10 @@ form.sonata-filter-form.form-stacked {
 
 /* Overrides */
 
+.content {
+    padding: 10px 15px;
+}
+
 /* x-editable */
 td.sonata-ba-list-field .editable {
     cursor: pointer;
