@@ -268,7 +268,15 @@ class HelperController
             $propertyPath = new PropertyPath($field);
         }
 
-        $propertyAccessor->setValue($object, $propertyPath, '' !== $value ? $value : null);
+        if($fieldDescription->getType() == 'datetime' ||
+           $fieldDescription->getType() == 'date' ||
+           $fieldDescription->getType() == 'time') {
+            $propertyAccessor->setValue($object, $propertyPath, '' !== $value ? new \DateTime($value) : null);
+        }
+        else {
+            $propertyAccessor->setValue($object, $propertyPath, '' !== $value ? $value : null);
+        }
+
 
         $violations = $this->validator->validateProperty($object, $field);
 
