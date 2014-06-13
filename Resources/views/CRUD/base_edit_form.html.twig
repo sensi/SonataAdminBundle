@@ -26,12 +26,8 @@
                 <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     {% for name, form_group in admin.formgroups %}
-                        
-                        
-        
-                        
                         <li class=" {% if loop.first %} active{% endif %}">
-                            <a data-toggle="tab" href="#{{ admin.uniqid }}_{{ loop.index }}">{{name}}</a>
+                            <a data-toggle="tab" href="#{{ admin.uniqid }}_{{ loop.index }}">{{ admin.trans(name, {}, form_group.translation_domain) }}</a>
                         </li>
                     {% endfor %}
                 </ul>
